@@ -1,11 +1,12 @@
-package com.example.sidharth.configclient;
+package com.example.sidharth.khala.ServiceImpl;
 
-import com.example.sidharth.khala.ServiceImpl.PlayerServiceImpl;
 import com.example.sidharth.khala.model.Pit;
 import com.example.sidharth.khala.model.Player;
 import com.example.sidharth.khala.util.Constants;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -15,16 +16,18 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 /**
- * Created by Sidharth on 6/25/17.
+ * Created by Sidharth on 7/6/17.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class PlayerserviceImplTest {
+@SpringBootTest(classes = com.example.sidharth.khala.ServiceImpl.PlayerServiceImpl.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class PlayerServiceImplTest {
+
     @Autowired
     PlayerServiceImpl playerService;
 
     @Test
-    public  void verifyCreatePlayer(){
+    public  void Test1verifyCreatePlayer(){
         Player player=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         assertNotNull(player);
         player=playerService.createPlayer("",Constants.pits,Constants.stonesineachpit);
@@ -32,7 +35,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void verifyCheckLastStoneInOwnEmptyPitRule(){
+    public void Test2verifyCheckLastStoneInOwnEmptyPitRule(){
         Player player=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         int numberOfStoneLeft=13;
         int pitNumber=1;
@@ -45,7 +48,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void verifyApplyLastStoneInOwnEmptyPitRule(){
+    public void Test3verifyApplyLastStoneInOwnEmptyPitRule(){
         Player player1=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         Player player2=playerService.createPlayer(Constants.PLAYER2,Constants.pits,Constants.stonesineachpit);
 
@@ -65,7 +68,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void  verifyCreatePitArray(){
+    public void  Test4verifyCreatePitArray(){
         Pit [] pitArray=playerService.createPitArray(10);
         assertEquals(10,pitArray.length);
         for (Pit pit:pitArray) {
@@ -74,7 +77,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void verifyIsNextMovePossible(){
+    public void Test5verifyIsNextMovePossible(){
         int numberOfStonesLeft=0;
         assertEquals(false,playerService.isNextMovePossible(numberOfStonesLeft));
         numberOfStonesLeft=10;
@@ -83,7 +86,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void verifyIsGameFinished(){
+    public void Test6verifyIsGameFinished(){
 
         Player player1=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         Player player2=playerService.createPlayer(Constants.PLAYER2,Constants.pits,Constants.stonesineachpit);
@@ -102,7 +105,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public void  verifyDetermineWinner(){
+    public void  Test7verifyDetermineWinner(){
         Player player1=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         Player player2=playerService.createPlayer(Constants.PLAYER2,Constants.pits,Constants.stonesineachpit);
         HashMap<String, Player> playerMap = new HashMap<>();
@@ -119,7 +122,7 @@ public class PlayerserviceImplTest {
     }
 
     @Test
-    public  void verifyGetOtherPLayerName(){
+    public  void Test8verifyGetOtherPLayerName(){
         Player player1=playerService.createPlayer(Constants.PLAYER1,Constants.pits,Constants.stonesineachpit);
         Player player2=playerService.createPlayer(Constants.PLAYER2,Constants.pits,Constants.stonesineachpit);
         HashMap<String, Player> playerMap = new HashMap<>();
@@ -131,7 +134,7 @@ public class PlayerserviceImplTest {
 
 
     @Test
-    public  void  verifySetNextPlayer(){
+    public  void  Test9verifySetNextPlayer(){
 
         String playerName=System.getProperty(Constants.CURRENT_PLAYER);
         playerService.setNextPlayer(Constants.PLAYER1);
@@ -140,5 +143,6 @@ public class PlayerserviceImplTest {
 
 
     }
+
 
 }
